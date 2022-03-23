@@ -2,12 +2,12 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DefaultMovie from './DefaultMovie';
-
+import { Helmet } from "react-helmet";
 
 function App() {
   const [text, setText] = useState("")
   const [movie, setMovie] = useState([])
-  const [afterSearch,setClass] =useState("")
+  const [afterSearch, setClass] = useState("")
 
 
   const changeText = (event) => {
@@ -19,12 +19,18 @@ function App() {
 
     axios.get(`https://www.omdbapi.com/?s=${text}&apikey=2bef9eb7`).then((response) => {
       setMovie(response.data.Search)
-    }).catch(err=>{
-      alert("Movie Not Found");
+    }).catch(err => {
+      alert("Movie Not Foxund");
     })
   }
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Movie Search</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+        <meta name="description" content="React movie search project" />
+      </Helmet>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">Movie App</a>
@@ -42,7 +48,7 @@ function App() {
         </div>
       </nav>
 
-    <DefaultMovie name={afterSearch}/> 
+      <DefaultMovie name={afterSearch} />
       <div className='container-fluid my-3 p-0'>
         <div className='row'>
           {
